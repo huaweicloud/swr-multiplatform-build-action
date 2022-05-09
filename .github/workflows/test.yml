@@ -1,0 +1,35 @@
+on: 
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'releases/*'
+
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          npm install
+      - run: |
+          npm run all
+  test: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: huaweicloud/swr-login@v1
+        name: Login to HuaweiCloud SWR
+        with:
+          region: cn-north-4
+          access-key-id: ${{ secrets.ACCESSKEY }}
+          access-key-secret: ${{ secrets.SECRETACCESSKEY }}
+      - uses: ./
+        name: "build docker image for multiplatform"
+        with:
+         imagetag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
+         platforms: linux/amd64,linux/arm64/v8,windows/amd64
+         uselatestbuildx: false
+         push: true
+         file: ./Dockerfile
