@@ -1,52 +1,41 @@
-# ssh-remote-action
-允许用户通过配合远端服务器的ip地址和账号密码，将批量配置的脚本发送到服务器端执行，从而实现对服务器上业务的管理  
-如安装工具，启停服务等  
+# swr-multiplatform-build-action
+允许用户构建跨平台镜像,如linux平台，windows平台或macos平台，并直接推送到SWR等Docker registry上
+目前支持的平台列表如下,构建镜像具体支持的平台需要看FROM的基础镜像支持哪些平台
+  'linux/amd64',
+  'linux/arm64',
+  'linux/ppc64le',
+  'linux/s390x',
+  'linux/386',
+  'linux/arm/v7',
+  'linux/arm/v6',
+  'linux/arm64/v8',
+  'windows/amd64',
+  'windows/arm64',
+  'darwin/amd64',
+  'darwin/arm64'
 
 ## **前置工作**
-(1).获取远端linux服务器的IP,账号,密码  
-(2).需要在项目的setting--Secret--Actions下添加 USERNAME,PASSWORD两个参数  
+(1).如果需要推送到SWR等Docker registry上，需要添加一个docker login的action，添加好登录账号密码等信息  
+(2).需要确定基础镜像支持的平台
+如19-jdk,支持windows/amd64,linux/amd64,linux/arm64/v8 这三个平台,
+![image](/uploads/bafc1105-ead1-44ad-a921-a897f884eee3/1652086430654.jpeg '1652086430654.jpeg')
 
 ## **参数说明:**
-ipaddr:远端节点IP地址，必填  
-username:远端节点账号，必填  
-password:远端节点密码，必填  
-commands:需要执行的远程命令，必填  
+imagetag:需要打包的docker镜像标签，如   swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
+platforms: 当前需要打包支持的平台，用逗号隔开，如  linux/amd64,linux/arm64/v8,windows/amd64
+file: Dockerfile路径，默认为Dockerfile,如果在其他目录，则填写相对路径,如 ./docker-v1.0.0.1/Dockerfile
+uselatestbuildx: 是否需要使用最新版本的docker buildx来构建docker镜像
+push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填true，需要再前面增加一个docker login的action完成镜像仓库的登录
 
 ## **使用样例**
-结合scp-remote-action完成一个springcloud项目部署:
+为docker镜像添加 linux/amd64,linux/arm64/v8,windows/amd64 平台支持
 ```yaml
-- name: stop and backup service
-  uses: huaweicloud/ssh-remote-action@v1.0.0
-  with:
-    ipaddr: "***.***.***.**"
-    username: ${{ secrets.USERNAME }}
-    password: ${{ secrets.PASSWORD }}
-    commands: |
-      systemctl stop demoapp.service
-      mkdir -p /opt/backup/demoapp/\$currentDate
-      mv /usr/local/demoapp.jar /opt/backup/demoapp/\$currentDate/
-
-- name: deploy service
-  uses: huaweicloud/scp-remote-action@v1.0.0
-  with:
-    ipaddr: "***.***.***.**"
-    username: ${{ secrets.USERNAME }}
-    password: ${{ secrets.PASSWORD }}
-    operation_type: upload
-    operation_list: |
-      file target/demoapp.jar /usr/local/
-      file bin/demoapp.service /etc/systemd/system/
-      file bin/start-demoapp.sh /usr/local/
-      file bin/stop-demoapp.sh /usr/local/
-
-- name: reload and start service
-  uses: huaweicloud/ssh-remote-action@v1.0.0
-  with:
-    ipaddr: "***.***.***.**"
-    username: ${{ secrets.USERNAME }}
-    password: ${{ secrets.PASSWORD }}
-    commands: |
-      chmod 755 /usr/local/start-demoapp.sh && chmod 755 /usr/local/stop-demoapp.sh
-      systemctl daemon-reload
-      systemctl start demoapp.service
+      - uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
+        name: "build docker image for multiplatform"
+        with:
+         imagetag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
+         platforms: linux/amd64,linux/arm64/v8,windows/amd64
+         uselatestbuildx: false
+         push: true
+         file: ./Dockerfile
 ```
