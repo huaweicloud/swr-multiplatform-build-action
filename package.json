@@ -1,5 +1,5 @@
 {
-  "name": "docker-build-multiplatform",
+  "name": "swr-multiplatform-build-action",
   "version": "0.0.1",
   "private": true,
   "description": "build docker image cross platform like linux,windows,macos x86 and arm",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lengxing-lx/docker-build-multiplatform.git"
+    "url": "git+https://github.com/huaweicloud/swr-multiplatform-build-action.git"
   },
   "keywords": [
     "actions",
