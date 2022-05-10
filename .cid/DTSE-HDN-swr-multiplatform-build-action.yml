@@ -1,25 +1,41 @@
 version: 1.0
-name: DTSE-HDN-swr-multiplatform-build-action
-#  开发语言
-language: java
+name: swr-multiplatform-build-action
+language: nodejs
+
 #  构建工具
 dependencies:
-  base:
-    jdk: best
-    maven:  best
-    
+    base:
+        nodejs: best
 
-#  编译机类型
+#  构建机器
 machine:
-  standard:
-    euler:
-      - default
+    standard:
+        euler:
+            - default
 
-#  定义构建的命令行，通过定义的构建命令行可以构建出artifacts中定义的构建产物。
+#  构建脚本
 scripts:
-  - sh build.sh  #  请修改成业务使用的构建脚本文件相对路径
+    - sh build.sh
 
-#  定义构建产物，在编译完成后根据此配置项上传构建产物。
+#  构建产物
 artifacts:
-  image:
-    - registry.huawei.com/:latest
+    static:
+        - output: dist
+          include:
+              - '*'
+          exclude:
+              - '*.java'
+              - '*.kotlin'
+              - '*.class'
+              - '*.jar'
+              - '*.war'
+              - '*.c'
+              - '*.cpp'
+              - '*.h'
+              - '*.o'
+              - '*.so'
+              - '*.dll'
+              - '*.out'
+              - '*.py'
+              - '*.whl'
+              - '*.go'
