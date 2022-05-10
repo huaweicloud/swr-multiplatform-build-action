@@ -80,7 +80,9 @@ manifests:
  
  ## **镜像使用:**
  在linunx或者windows的x86-64平台或者linux的arm-64平台，直接docker pull这个镜像，docker会自动下载对应平台的镜像
- linux-arm平台:
+### 1、linux x86-64平台
+![image](/uploads/a564f43f-de4b-4793-bada-0d1d8475a8c3/1652147304269.png '1652147304269.png')
+### 2、linux arm-64平台:
  ![image](/uploads/dd81f2e0-b32e-4c52-a6cb-3d55ef453559/1652098293586.png '1652098293586.png')
- windows-x86-64平台 
+###  3、windows x86-64平台 
  ![image](/uploads/a4d94dbc-da4d-4f92-9571-b2b9f34471b2/1652144351002.png '1652144351002.png')
