@@ -136,12 +136,6 @@ export function getOSPlatform(): string {
   return osPlatform
 }
 
-// export function getOSType4Buildx(osType:string):string{
-//   const osType = os.type();
-//   core.info("Current system type is " + osType);
-//   return osType;
-// }
-
 export function getOSArch4Buildx(osPlatform: string, osArch: string): string {
   if ((osPlatform === 'linux' || osPlatform === 'darwin') && osArch === 'x64') {
     osArch = 'amd64'
@@ -203,18 +197,3 @@ export async function execCommand(command: string): Promise<string> {
   core.info(execCommandResult)
   return execCommandResult
 }
-
-/**
- * Dockerfile de mimetype 为null。。。。暂时屏蔽
- * @param filePath
- * @returns
- */
-/**
-export function getFileMimeType(filePath: string): string | null {
-  console.log(fs.statSync(filePath))
-  core.info('filePath ' + filePath)
-  const mimeType = mime.getType(filePath)
-  core.info('mimeType ' + mimeType)
-  return mimeType
-}
- */

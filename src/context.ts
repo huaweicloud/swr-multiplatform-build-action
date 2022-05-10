@@ -60,10 +60,13 @@ export const enum VersionCompare {
 }
 export const osSupportArchs = ['x64', 'arm64', 's390x', 'ppc64']
 
-//windows权限和路径问题很难搞，先不支持,linux和macos验证没问题
-//export const osSupportTypes = ['Darwin', 'Linux', 'Windows_NT']
+/**
+ * windows先不支持
+ * export const osSupportPlatforms = ['darwin', 'linux', 'win32']
+ * export const osSupportTypes = ['Darwin', 'Linux', 'Windows_NT']
+ */
 export const osSupportTypes = ['Darwin', 'Linux']
-//export const osSupportPlatforms = ['darwin', 'linux', 'win32']
+
 export const osSupportPlatforms = ['darwin', 'linux']
 
 //19.03是最迟buildx的最低版本

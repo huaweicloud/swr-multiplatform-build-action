@@ -1191,7 +1191,6 @@ exports.getBuildXDownlodPath = getBuildXDownlodPath;
 function getLatestBuildxTag() {
     return __awaiter(this, void 0, void 0, function* () {
         core.info('latest tag api address ' + context.DOCKER_BUILDX_RELEASE_API);
-        //const tmpTagDownloadDir = `${process.env['GITHUB_WORKSPACE']}/_temp/buildx/buildxtag`;
         const tmpTagDownloadDir = './tmp/buildx/buildxtag/' + uuid_1.v4();
         return yield toolCache
             .downloadTool(context.DOCKER_BUILDX_RELEASE_API, tmpTagDownloadDir)
@@ -5368,10 +5367,12 @@ exports.dockerSupportPlatforms = [
     'darwin/arm64'
 ];
 exports.osSupportArchs = ['x64', 'arm64', 's390x', 'ppc64'];
-//windows权限和路径问题很难搞，先不支持,linux和macos验证没问题
-//export const osSupportTypes = ['Darwin', 'Linux', 'Windows_NT']
+/**
+ * windows先不支持
+ * export const osSupportPlatforms = ['darwin', 'linux', 'win32']
+ * export const osSupportTypes = ['Darwin', 'Linux', 'Windows_NT']
+ */
 exports.osSupportTypes = ['Darwin', 'Linux'];
-//export const osSupportPlatforms = ['darwin', 'linux', 'win32']
 exports.osSupportPlatforms = ['darwin', 'linux'];
 //19.03是最迟buildx的最低版本
 exports.MINIMUM_DOCKER_VERSION = '19.03';
@@ -8158,7 +8159,7 @@ exports.checkInputs = checkInputs;
  */
 function checkPlatformSupport(platforms) {
     let isPlatformSupport = true;
-    if (!platforms.includes(",")) {
+    if (!platforms.includes(',')) {
         return context.dockerSupportPlatforms.includes(platforms);
     }
     const platformsArray = platforms.split(',');
@@ -8245,11 +8246,6 @@ function getOSPlatform() {
     return osPlatform;
 }
 exports.getOSPlatform = getOSPlatform;
-// export function getOSType4Buildx(osType:string):string{
-//   const osType = os.type();
-//   core.info("Current system type is " + osType);
-//   return osType;
-// }
 function getOSArch4Buildx(osPlatform, osArch) {
     if ((osPlatform === 'linux' || osPlatform === 'darwin') && osArch === 'x64') {
         osArch = 'amd64';
@@ -8310,20 +8306,6 @@ function execCommand(command) {
     });
 }
 exports.execCommand = execCommand;
-/**
- * Dockerfile de mimetype 为null。。。。暂时屏蔽
- * @param filePath
- * @returns
- */
-/**
-export function getFileMimeType(filePath: string): string | null {
-  console.log(fs.statSync(filePath))
-  core.info('filePath ' + filePath)
-  const mimeType = mime.getType(filePath)
-  core.info('mimeType ' + mimeType)
-  return mimeType
-}
- */
 
 
 /***/ }),
@@ -8890,7 +8872,8 @@ function checkDockerSuitable() {
             return false;
         }
         const localDockerVersion = yield getVersion();
-        if (utils.compareVersion(localDockerVersion, context.MINIMUM_DOCKER_VERSION) === -1 /* Low */) {
+        if (utils.compareVersion(localDockerVersion, context.MINIMUM_DOCKER_VERSION) ===
+            -1 /* Low */) {
             core.info('the current installed docker version not suitable for multiplatform build,please install latest docker version');
             return false;
         }
@@ -8934,8 +8917,8 @@ exports.getVersion = getVersion;
  */
 function parseDockerVersion(dockerVersion) {
     let version = dockerVersion.split(',')[0].split(' ')[2];
-    if (version.includes("-")) {
-        version = version.substring(0, version.indexOf("-"));
+    if (version.includes('-')) {
+        version = version.substring(0, version.indexOf('-'));
     }
     core.info('docker version ' + version);
     return version;
