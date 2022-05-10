@@ -1,7 +1,8 @@
 # swr-multiplatform-build-action
 允许用户构建跨平台镜像,如linux平台，windows平台或macos平台，并直接推送到SWR等Docker registry上
 目前支持的平台列表如下,构建镜像具体支持的平台需要看FROM的基础镜像支持哪些平台
-  'linux/amd64',
+```yaml
+'linux/amd64',
   'linux/arm64',
   'linux/ppc64le',
   'linux/s390x',
@@ -13,6 +14,7 @@
   'windows/arm64',
   'darwin/amd64',
   'darwin/arm64'
+```
 
 ## **前置工作**
 (1).如果需要推送到SWR等Docker registry上，需要添加一个docker login的action，添加好登录账号密码等信息  
