@@ -1097,11 +1097,11 @@ exports.checkAndInstallDockerBuildx = checkAndInstallDockerBuildx;
 function checkBuildxNeedUpdate(inputs) {
     return __awaiter(this, void 0, void 0, function* () {
         if (inputs.uselatestbuildx) {
-            const latestDockerBuildxVersion = (yield getLatestBuildxTag()).replace("v", "");
+            const latestDockerBuildxVersion = (yield getLatestBuildxTag()).replace('v', '');
             const currentVersion = yield getDockerBuildxVersion();
-            core.info("current installed docker buildx version: " +
+            core.info('current installed docker buildx version: ' +
                 currentVersion +
-                ",and the latest vesion is " +
+                ',and the latest vesion is ' +
                 latestDockerBuildxVersion);
             return (utils.compareVersion(currentVersion, latestDockerBuildxVersion) ===
                 -1 /* Low */);
@@ -1127,7 +1127,7 @@ function installOrUpdateDockerBuildX() {
         if (!context.osSupportArchs.includes(osArch) ||
             !context.osSupportTypes.includes(osType) ||
             !context.osSupportPlatforms.includes(osPlatform)) {
-            core.info("docker buildx not can not install on this platform or arch");
+            core.info('docker buildx not can not install on this platform or arch');
             return;
         }
         const buildxOSArch = utils.getOSArch4Buildx(osPlatform, osArch);
@@ -1136,10 +1136,10 @@ function installOrUpdateDockerBuildX() {
         const buildxDownloadUrl = getDockerBuildxDownloadUrl(buildxTag, buildxOSPlatform, buildxOSArch);
         const buildxDownloadPath = yield getBuildXDownlodPath(buildxDownloadUrl);
         if (utils.checkParameterIsNull(buildxDownloadPath)) {
-            core.info("download docker buildx failed");
+            core.info('download docker buildx failed');
             return;
         }
-        yield utils.execCommand("sudo mkdir -p " + context.DOCKER_BUILDX_INSTALL_PATH);
+        yield utils.execCommand('sudo mkdir -p ' + context.DOCKER_BUILDX_INSTALL_PATH);
         yield utils.execCommand('sudo cp ' +
             buildxDownloadPath +
             ' ' +
@@ -1174,7 +1174,7 @@ function getBuildXDownlodPath(buildxDownloadUrl) {
             buildxDownloadPath = yield toolCache.downloadTool(buildxDownloadUrl, tmpBuildDownloadPath);
         }
         catch (error) {
-            core.info("Failed to download docker buildx from " +
+            core.info('Failed to download docker buildx from ' +
                 buildxDownloadUrl +
                 ' error info ' +
                 error);
@@ -1284,7 +1284,7 @@ exports.getDockerBuildxVersion = getDockerBuildxVersion;
 function parseVersion(buildxVersion) {
     const matches = /\sv?([0-9a-f]{7}|[0-9.]+)/.exec(buildxVersion);
     if (!matches) {
-        throw new Error("fail to parse docker buildx version");
+        throw new Error('fail to parse docker buildx version');
     }
     return matches[1];
 }
@@ -5376,10 +5376,10 @@ exports.osSupportPlatforms = ['darwin', 'linux'];
 //19.03是最迟buildx的最低版本
 exports.MINIMUM_DOCKER_VERSION = '19.03';
 exports.BUILDX_INIT_COMMAND = 'docker buildx create --name multbuild --driver docker-container --use && docker buildx inspect multbuild --bootstrap';
-exports.BUILDX_RESULT_COMMAND = "docker buildx ls";
+exports.BUILDX_RESULT_COMMAND = 'docker buildx ls';
 exports.DOCKER_BUILDX_RELEASE_API = 'https://api.github.com/repos/docker/buildx/releases/latest';
 /**
- * buildx 已经不再支持32位平台了，支持的都是64位的平台
+ * buildx 已经不再支持32位平台了，支持的都是64位的平台,如当前最新的版本v0.8.2
  *  buildx-v0.8.2.darwin-amd64   https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.darwin-amd64
  *  buildx-v0.8.2.darwin-arm64   https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.darwin-arm64
  *  buildx-v0.8.2.linux-amd64    https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-amd64
@@ -5391,7 +5391,7 @@ exports.DOCKER_BUILDX_RELEASE_API = 'https://api.github.com/repos/docker/buildx/
  *  buildx-v0.8.2.linux-s390x    https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-s390x
  *  buildx-v0.8.2.windows-amd64.exe    https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.windows-amd64.exe
  *  buildx-v0.8.2.windows-arm64.exe    https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.windows-arm64.exe
- * $tag, $tag,$platform,$arch
+ *  $tag, $tag,$platform,$arch
  */
 exports.DOCKER_BUILDX_RELEASE_DOWNLOAD_URL = 'https://github.com/docker/buildx/releases/download/%s/buildx-%s.%s-%s';
 //开发此action时，最新的稳定版本
@@ -8137,14 +8137,14 @@ function checkInputs(inputs) {
                 checkResult = false;
             }
         }
-        if (inputs.platforms && !checkPlatformSupport(inputs.platforms)) {
-            checkResult = false;
+        if (inputs.platforms) {
+            checkResult = checkPlatformSupport(inputs.platforms);
         }
         if (!inputs.file) {
             inputs.file = 'Dockerfile';
         }
         if (!checkDockerfileExist(inputs.file)) {
-            core.info('Dockerfile not exit or content is empty');
+            core.info('Dockerfile not exit or file content is empty');
             checkResult = false;
         }
         return checkResult;
@@ -8158,6 +8158,9 @@ exports.checkInputs = checkInputs;
  */
 function checkPlatformSupport(platforms) {
     let isPlatformSupport = true;
+    if (!platforms.includes(",")) {
+        return context.dockerSupportPlatforms.includes(platforms);
+    }
     const platformsArray = platforms.split(',');
     for (let i = 0; i < platformsArray.length; i++) {
         if (!context.dockerSupportPlatforms.includes(platformsArray[i])) {
@@ -8875,11 +8878,9 @@ const core = __importStar(__webpack_require__(470));
 const io = __importStar(__webpack_require__(1));
 const context = __importStar(__webpack_require__(482));
 const utils = __importStar(__webpack_require__(611));
-//检查docker是否存在
-//检查docker版本是否满足 docker buildx要求
 /**
  * 检查docker是否安装，且安装的版本是否适应buildx
- * docker 没有安装和版本不符合要求都将推出action
+ * docker 没有安装和版本不符合要求都将退出action
  * @returns
  */
 function checkDockerSuitable() {
@@ -8889,8 +8890,7 @@ function checkDockerSuitable() {
             return false;
         }
         const localDockerVersion = yield getVersion();
-        if (utils.compareVersion(localDockerVersion, context.MINIMUM_DOCKER_VERSION) ===
-            -1) {
+        if (utils.compareVersion(localDockerVersion, context.MINIMUM_DOCKER_VERSION) === -1 /* Low */) {
             core.info('the current installed docker version not suitable for multiplatform build,please install latest docker version');
             return false;
         }
@@ -8933,7 +8933,10 @@ exports.getVersion = getVersion;
  * @returns
  */
 function parseDockerVersion(dockerVersion) {
-    const version = dockerVersion.split(',')[0].split(' ')[2];
+    let version = dockerVersion.split(',')[0].split(' ')[2];
+    if (version.includes("-")) {
+        version = version.substring(0, version.indexOf("-"));
+    }
     core.info('docker version ' + version);
     return version;
 }

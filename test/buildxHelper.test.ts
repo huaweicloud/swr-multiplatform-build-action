@@ -2,7 +2,6 @@ import * as utils from '../src/utils'
 import {expect, test} from '@jest/globals'
 import * as buildx from '../src/buildxHelper'
 
-
  test('check buildx download', async() => {
     const testDownloadUrl = "https://github.com/huaweicloud/scp-remote-action/archive/refs/tags/v1.0.0.zip";
     const downloadPath = await buildx.getBuildXDownlodPath(testDownloadUrl);
@@ -130,7 +129,3 @@ test('check os,platform,arch', async() => {
     console.log("buildxDownloadUrl " + buildxDownloadUrl)
     return buildxDownloadUrl;
   }
-
-  test("test check latest buildx tag", async() => {
-    console.log(await buildx.getLatestBuildxTag());
-  })

@@ -3,12 +3,9 @@ import * as io from '@actions/io'
 import * as context from './context'
 import * as utils from './utils'
 
-//检查docker是否存在
-//检查docker版本是否满足 docker buildx要求
-
 /**
  * 检查docker是否安装，且安装的版本是否适应buildx
- * docker 没有安装和版本不符合要求都将推出action
+ * docker 没有安装和版本不符合要求都将退出action
  * @returns
  */
 export async function checkDockerSuitable(): Promise<boolean> {
@@ -19,7 +16,7 @@ export async function checkDockerSuitable(): Promise<boolean> {
   const localDockerVersion: string = await getVersion()
   if (
     utils.compareVersion(localDockerVersion, context.MINIMUM_DOCKER_VERSION) ===
-    -1
+    context.VersionCompare.Low
   ) {
     core.info(
       'the current installed docker version not suitable for multiplatform build,please install latest docker version'
@@ -60,7 +57,10 @@ export async function getVersion(): Promise<string> {
  * @returns
  */
 export function parseDockerVersion(dockerVersion: string): string {
-  const version = dockerVersion.split(',')[0].split(' ')[2]
+  let version = dockerVersion.split(',')[0].split(' ')[2]
+  if (version.includes('-')) {
+    version = version.substring(0, version.indexOf('-'))
+  }
   core.info('docker version ' + version)
   return version
 }

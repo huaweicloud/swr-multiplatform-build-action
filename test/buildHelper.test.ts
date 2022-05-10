@@ -37,7 +37,6 @@ const inputs4:context.Inputs ={
 }
 
 test("test version compare mimetype", async() => {
-
     console.log(build.genDockerBuildCommand(inputs1));
 
     console.log(build.genDockerBuildCommand(inputs2));
@@ -53,5 +52,4 @@ test("test version compare mimetype", async() => {
     expect(build.genDockerBuildCommand(inputs3)).toEqual("docker buildx build --platform linux/amd64,linux/arm64/v8,windows/amd64 -f ./dockerfile/Dockerfile -t swr.cn-north-4.myhuaweicloud.com/ptworkflow/tomcat:maven-sample .");
 
     expect(build.genDockerBuildCommand(inputs4)).toEqual("docker buildx build --platform linux/amd64,linux/arm64/v8,windows/amd64 -f ./dockerfile/Dockerfile -t swr.cn-north-4.myhuaweicloud.com/ptworkflow/tomcat:maven-sample --push .");
-
 })

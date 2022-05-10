@@ -24,15 +24,15 @@ export async function checkInputs(inputs: context.Inputs) {
     }
   }
 
-  if (inputs.platforms && !checkPlatformSupport(inputs.platforms)) {
-    checkResult = false
+  if (inputs.platforms) {
+    checkResult = checkPlatformSupport(inputs.platforms)
   }
 
   if (!inputs.file) {
     inputs.file = 'Dockerfile'
   }
   if (!checkDockerfileExist(inputs.file)) {
-    core.info('Dockerfile not exit or content is empty')
+    core.info('Dockerfile not exit or file content is empty')
     checkResult = false
   }
   return checkResult
@@ -45,6 +45,9 @@ export async function checkInputs(inputs: context.Inputs) {
  */
 export function checkPlatformSupport(platforms: string): boolean {
   let isPlatformSupport = true
+  if (!platforms.includes(',')) {
+    return context.dockerSupportPlatforms.includes(platforms)
+  }
   const platformsArray = platforms.split(',')
   for (let i = 0; i < platformsArray.length; i++) {
     if (!context.dockerSupportPlatforms.includes(platformsArray[i])) {

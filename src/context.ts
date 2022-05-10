@@ -78,7 +78,7 @@ export const DOCKER_BUILDX_RELEASE_API =
   'https://api.github.com/repos/docker/buildx/releases/latest'
 
 /**
- * buildx 已经不再支持32位平台了，支持的都是64位的平台
+ * buildx 已经不再支持32位平台了，支持的都是64位的平台,如当前最新的版本v0.8.2
  *  buildx-v0.8.2.darwin-amd64   https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.darwin-amd64
  *  buildx-v0.8.2.darwin-arm64   https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.darwin-arm64
  *  buildx-v0.8.2.linux-amd64    https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-amd64
@@ -90,7 +90,7 @@ export const DOCKER_BUILDX_RELEASE_API =
  *  buildx-v0.8.2.linux-s390x    https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-s390x
  *  buildx-v0.8.2.windows-amd64.exe    https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.windows-amd64.exe
  *  buildx-v0.8.2.windows-arm64.exe    https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.windows-arm64.exe
- * $tag, $tag,$platform,$arch
+ *  $tag, $tag,$platform,$arch
  */
 export const DOCKER_BUILDX_RELEASE_DOWNLOAD_URL =
   'https://github.com/docker/buildx/releases/download/%s/buildx-%s.%s-%s'
