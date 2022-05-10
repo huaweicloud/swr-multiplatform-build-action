@@ -32,6 +32,13 @@ push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填tr
 ## **使用样例**
 为docker镜像添加 linux/amd64,linux/arm64/v8,windows/amd64 平台支持
 ```yaml
+      - uses: huaweicloud/swr-login@v1
+        name: Login to HuaweiCloud SWR
+        with:
+          region: cn-north-4
+          access-key-id: ${{ secrets.ACCESSKEY }}
+          access-key-secret: ${{ secrets.SECRETACCESSKEY }}
+          
       - uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
         name: "build docker image for multiplatform"
         with:
