@@ -74,4 +74,4 @@ manifests:
  linux-arm平台:
  ![image](/uploads/dd81f2e0-b32e-4c52-a6cb-3d55ef453559/1652098293586.png '1652098293586.png')
  windows-x86-64平台 
- 
+ ![image](/uploads/a4d94dbc-da4d-4f92-9571-b2b9f34471b2/1652144351002.png '1652144351002.png')
