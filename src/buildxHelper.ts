@@ -227,7 +227,7 @@ export async function isDockerBuildXAvailable(): Promise<boolean> {
       silent: true
     })
     .then(result => {
-      if (utils.checkParameterIsNull(result.stderr) && result.exitCode != 0) {
+      if (utils.checkParameterIsNull(result.stderr) && result.exitCode !== 0) {
         core.info('docker buildx not install')
         return false
       }
@@ -246,7 +246,7 @@ export async function getDockerBuildxVersion(): Promise<string> {
       silent: true
     })
     .then(result => {
-      if (result.stderr.length > 0 && result.exitCode != 0) {
+      if (result.stderr.length > 0 && result.exitCode !== 0) {
         throw new Error(result.stderr.trim())
       }
       return parseVersion(result.stdout.trim())
