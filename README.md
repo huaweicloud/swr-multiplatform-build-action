@@ -20,7 +20,7 @@
 (1).如果需要推送到SWR等Docker registry上，需要添加一个docker login的action，添加好登录账号密码等信息    
 (2).需要确定基础镜像支持的平台  
 如19-jdk,支持windows/amd64,linux/amd64,linux/arm64/v8 这三个平台,  
-![image](./images/20220509-165318.jpg '20220509-165318.jpg')
+![avatar](./images/20220509-165318.jpg)
 
 ## **参数说明:**
 imagetag:需要打包的docker镜像标签，如   swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4  
@@ -76,13 +76,13 @@ manifests:
       os: windows**</span>
  ```
  效果如下
- ![image](./images/20220509-194824.png '20220509-194824.png')
+ ![avatar](./images/20220509-194824.png)
  
  ## **镜像使用:**
  在linunx或者windows的x86-64平台或者linux的arm-64平台，直接docker pull这个镜像，docker会自动下载对应平台的镜像  
 ### 1、linux x86-64平台
-![image](./images/20220510-094740.png '20220510-094740.png')
+![avatar](./images/20220510-094740.png)
 ### 2、linux arm-64平台:
- ![image](./images/20220509-195911.png '20220509-195911.png')
+ ![avatar](./images/20220509-195911.png)
 ###  3、windows x86-64平台 
- ![image](./images/20220510-085854.png '20220510-085854.png')
+ ![avatar](./images/20220510-085854.png)
