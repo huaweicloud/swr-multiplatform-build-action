@@ -5402,9 +5402,9 @@ exports.DOCKER_BUILDX_INSTALL_NAME = 'docker-buildx';
 exports.DOCKER_BUILDX_MOD = '755';
 function getInputs() {
     return {
-        imagetag: core.getInput('imagetag', { required: true }),
+        imagetag: core.getInput('image_tag', { required: true }),
         platforms: core.getInput('platforms', { required: false }),
-        uselatestbuildx: core.getBooleanInput('uselatestbuildx', {
+        uselatestbuildx: core.getBooleanInput('use_latest_buildx', {
             required: false
         }),
         push: core.getBooleanInput('push', { required: false }),

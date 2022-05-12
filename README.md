@@ -20,7 +20,7 @@
 (1).如果需要推送到SWR等Docker registry上，需要添加一个docker login的action，添加好登录账号密码等信息    
 (2).需要确定基础镜像支持的平台  
 如19-jdk,支持windows/amd64,linux/amd64,linux/arm64/v8 这三个平台,  
-![image](/uploads/bafc1105-ead1-44ad-a921-a897f884eee3/1652086430654.jpeg '1652086430654.jpeg')
+![image](./images/20220509-165318.jpg '20220509-165318.jpg')
 
 ## **参数说明:**
 imagetag:需要打包的docker镜像标签，如   swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4  
@@ -42,9 +42,9 @@ push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填tr
       - uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
         name: "build docker image for multiplatform"
         with:
-         imagetag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
+         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
          platforms: linux/amd64,linux/arm64/v8,windows/amd64
-         uselatestbuildx: false
+         use_latest_buildx: false
          push: true
          file: ./Dockerfile
 ```

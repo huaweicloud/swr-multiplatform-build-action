@@ -5,7 +5,7 @@ branding:
   icon: 'chevron-up'
 author: 'wenchui'
 inputs:
-  imagetag: 
+  image_tag: 
     required: true
     description: 'the docker images build tag'
   platforms: 
@@ -14,7 +14,7 @@ inputs:
   file: 
     description: "Path to the Dockerfile"
     required: false
-  uselatestbuildx: 
+  use_latest_buildx: 
     required: false
     description: 'download the latest buildx version to build docker images'
     default: false
