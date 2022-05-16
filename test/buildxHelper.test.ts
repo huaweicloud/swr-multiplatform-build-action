@@ -19,7 +19,7 @@ test('check os,platform,arch', async() => {
   })
   
   
-  // * test macos platform download url
+  // test macos platform download url
   
   test("check MacOS x86-64 platform buildx download", async() => {
     const osArch = "x64";
@@ -36,7 +36,7 @@ test('check os,platform,arch', async() => {
   })
   
   
-  // * test windows platform download url
+  // test windows platform download url
   
   test("check windows x86-64 platform buildx download", async() => {
     const osArch = "x64";
@@ -71,7 +71,7 @@ test('check os,platform,arch', async() => {
   })
   
   
-  //test other linux platform
+  // test other linux platform
   
   test("check Linux arm-64 platform buildx download", async() => {
     const osArch = "s390x";

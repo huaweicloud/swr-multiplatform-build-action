@@ -37,7 +37,7 @@ export const regionArray = [
   'ap-southeast-1'
 ]
 
-//这里只罗列出来了buildx可以支持的平台，构建镜像时，要看当前镜像FROM的基础镜像是否支持改平台的构建，否则会报错
+// 这里只罗列出来了buildx可以支持的平台，构建镜像时，要看当前镜像FROM的基础镜像是否支持改平台的构建，否则会报错
 export const dockerSupportPlatforms = [
   'linux/amd64',
   'linux/arm64',
@@ -58,7 +58,7 @@ export const enum VersionCompare {
   Equre = 0,
   Low = -1
 }
-export const osSupportArchs = ['x64', 'arm64', 's390x', 'ppc64']
+export const osSupportArchs = ['x64', 'arm64', 's390x', 'ppc64', 'amd64']
 
 /**
  * windows先不支持
@@ -69,7 +69,7 @@ export const osSupportTypes = ['Darwin', 'Linux']
 
 export const osSupportPlatforms = ['darwin', 'linux']
 
-//19.03是最迟buildx的最低版本
+// 19.03是最迟buildx的最低版本
 export const MINIMUM_DOCKER_VERSION = '19.03'
 
 export const BUILDX_INIT_COMMAND =
@@ -81,7 +81,7 @@ export const DOCKER_BUILDX_RELEASE_API =
   'https://api.github.com/repos/docker/buildx/releases/latest'
 
 /**
- * buildx 已经不再支持32位平台了，支持的都是64位的平台,如当前最新的版本v0.8.2
+ *  buildx 已经不再支持32位平台了，支持的都是64位的平台,如当前最新的版本v0.8.2
  *  buildx-v0.8.2.darwin-amd64   https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.darwin-amd64
  *  buildx-v0.8.2.darwin-arm64   https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.darwin-arm64
  *  buildx-v0.8.2.linux-amd64    https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-amd64
@@ -98,7 +98,7 @@ export const DOCKER_BUILDX_RELEASE_API =
 export const DOCKER_BUILDX_RELEASE_DOWNLOAD_URL =
   'https://github.com/docker/buildx/releases/download/%s/buildx-%s.%s-%s'
 
-//开发此action时，最新的稳定版本
+// 开发此action时，最新的稳定版本
 export const DOCKER_BUILDX_STABLE_TAG = 'v0.8.2'
 
 export const DOCKER_BUILDX_INSTALL_PATH = '/usr/local/lib/docker/cli-plugins/'
