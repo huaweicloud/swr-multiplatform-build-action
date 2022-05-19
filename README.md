@@ -60,20 +60,20 @@ manifests:
     digest: 'sha256:231dfe58054c8f02f1a67ad29463a7c17f9ef67b02208b983b9ff9c0eb9cc891'
     size: 1161
     platform:
-<span style="color:#e60000;">**      architecture: amd64
-      os: linux**</span>
+      architecture: amd64
+      os: linux
   - mediaType: application/vnd.docker.distribution.manifest.v2+json
     digest: 'sha256:8161e616a3533a77e695b3af89ff53b9120192c6e98a8892270ada7ab325bcb7'
     size: 1161
     platform:
-<span style="color:#e60000;">**      architecture: arm64
-      os: linux**</span>
+      architecture: arm64
+      os: linux
   - mediaType: application/vnd.docker.distribution.manifest.v2+json
     digest: 'sha256:562edc71575aa6602ed353a0bc4bea1faac540ef37ea1c0aac96b1bab337842f'
     size: 2833
     platform:
-<span style="color:#e60000;">**      architecture: amd64
-      os: windows**</span>
+      architecture: amd64
+      os: windows
  ```
  效果如下
  ![avatar](./images/20220509-194824.png)
