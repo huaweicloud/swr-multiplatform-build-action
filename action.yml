@@ -1,0 +1,28 @@
+name: 'Build Docker images For Multi Platform'
+description: 'build docker image cross platform like linux,windows,macos x86 and arm'
+branding:
+  color: 'red'
+  icon: 'chevron-up'
+author: 'wenchui'
+inputs:
+  image_tag: 
+    required: true
+    description: 'the docker images build tag'
+  platforms: 
+    required: false
+    description: "List of target platforms for build,Use ',' to separate"
+  file: 
+    description: "Path to the Dockerfile"
+    required: false
+  use_latest_buildx: 
+    required: false
+    description: 'download the latest buildx version to build docker images'
+    default: false
+  push:
+    description: "Push the image to swr after the image build"
+    required: true
+    default: false
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
