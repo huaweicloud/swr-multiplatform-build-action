@@ -18,9 +18,9 @@
     "url": "git+https://github.com/huaweicloud/swr-multiplatform-build-action.git"
   },
   "keywords": [
-    "actions",
-    "ssh",
-    "remote"
+    "swr",
+    "multi platform",
+    "docker"
   ],
   "author": "wenchui",
   "license": "MIT",
