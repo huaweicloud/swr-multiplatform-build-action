@@ -30,7 +30,7 @@ uselatestbuildx: 是否需要使用最新版本的docker buildx来构建docker�
 push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填true，需要再前面增加一个docker login的  action完成镜像仓库的登录  
 
 ## **使用样例**
-为docker镜像添加 linux/amd64,linux/arm64/v8,windows/amd64 平台支持  
+为docker镜像添加 linux/amd64,linux/arm64/v8,windows/amd64 平台支持 ,注意github暂不支持基于windows镜像跑workflow，请不要runs-on: windows相关的镜像
 ```yaml
       - uses: huaweicloud/swr-login@v1
         name: Login to HuaweiCloud SWR
