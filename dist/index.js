@@ -5358,9 +5358,11 @@ exports.dockerSupportPlatforms = [
     'linux/ppc64le',
     'linux/s390x',
     'linux/386',
+    'linux/arm/v5',
     'linux/arm/v7',
     'linux/arm/v6',
     'linux/arm64/v8',
+    'linux/mips64le',
     'windows/amd64',
     'windows/arm64',
     'darwin/amd64',
@@ -8872,8 +8874,7 @@ function checkDockerSuitable() {
             return false;
         }
         const localDockerVersion = yield getVersion();
-        if (utils.compareVersion(localDockerVersion, context.MINIMUM_DOCKER_VERSION) ===
-            -1 /* Low */) {
+        if (utils.compareVersion(localDockerVersion, context.MINIMUM_DOCKER_VERSION) === -1 /* Low */) {
             core.info('the current installed docker version not suitable for multiplatform build,please install latest docker version');
             return false;
         }
@@ -8911,14 +8912,17 @@ function getVersion() {
 }
 exports.getVersion = getVersion;
 /**
- * 从docker 版本字符串中提取出来数字版本，如 Docker version 20.10.14, build a224086
+ * 从docker 版本字符串中提取出来数字版本，
+ * 如 Docker version 20.10.14, build a224086         提取:20.10.14
+ *    Docker version 17.09.0-ce, build afdb6d4       提取:17.09.0
+ *    Docker version 18.06.1-ce, build e68fc7a 等    提取:18.06.1
  * @param dockerVersion
  * @returns
  */
 function parseDockerVersion(dockerVersion) {
     let version = dockerVersion.split(',')[0].split(' ')[2];
-    if (version.includes('-')) {
-        version = version.substring(0, version.indexOf('-'));
+    if (version.includes("-")) {
+        version = version.substring(0, version.indexOf("-"));
     }
     core.info('docker version ' + version);
     return version;
