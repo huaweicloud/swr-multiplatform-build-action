@@ -19,8 +19,8 @@
 ```
 
 ## **前置工作**
-(1).如果需要推送到SWR等Docker registry上，需要添加一个docker login的action，添加好登录账号密码等信息    
-(2).需要确定基础镜像支持的平台  
+(1) 如果需要推送到SWR等Docker registry上，需要添加一个docker login的action，添加好登录账号密码等信息    
+(2) 需要确定基础镜像支持的平台  
 如19-jdk,支持windows/amd64,linux/amd64,linux/arm64/v8 这三个平台,  
 ![avatar](./images/20220509-165318.jpg)
 
