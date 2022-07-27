@@ -4,3 +4,4 @@ package-lock.json
 tmp
 temp
 *.log
+coverage/
