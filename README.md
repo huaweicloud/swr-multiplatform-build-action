@@ -1,6 +1,6 @@
 # swr-multiplatform-build-action
-允许用户构建跨平台镜像,如linux平台，windows平台或macos平台，并可以直接推送到SWR等Docker镜像仓库上  
-目前支持的平台列表如下  
+允许用户构建跨平台镜像,如linux平台，windows平台或macos平台，并可以直接推送到SWR等Docker镜像仓库上。  
+目前支持的平台列表如下：  
 ```yaml
   'linux/amd64',
   'linux/arm64',
@@ -25,11 +25,14 @@
 ![avatar](./images/20220509-165318.jpg)
 
 ## **参数说明:**
-imagetag:需要打包的docker镜像标签，如   swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4  
-platforms: 当前需要打包支持的平台，用逗号隔开，如  linux/amd64,linux/arm64/v8,windows/amd64  
-file: Dockerfile路径，默认为Dockerfile,如果在其他目录，则填写相对路径,如 ./docker-v1.0.0.1/Dockerfile  
-uselatestbuildx: 是否需要使用最新版本的docker buildx来构建docker镜像  
-push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填true，需要再前面增加一个docker login的  action完成镜像仓库的登录  
+| Name          | Require | Default | Description |
+| ------------ | ------- | ------- | ----------- |
+| image_tag    |   true    |         | 需要打包的docker镜像标签，如：swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4|
+| platforms    |   false    |         | 当前需要打包支持的平台，用逗号隔开。如  linux/amd64,linux/arm64/v8,windows/amd64。如果不填写的话，会默认打包当前环境所在的平台，如ubuntu-latest所在的linux/amd64|
+| file    |   false        |        | Dockerfile路径，默认为Dockerfile,如果在其他目录，则填写相对路径或者绝对路径,如 ./dockerfiles/Dockerfile|
+| use_latest_buildx    |   false    |     false    | 是否需要使用最新版本的docker buildx来构建docker镜像,如果为true,会比较当前安装的buildx和官方发布的最新版本，有差异的话会安装最新版本|  
+| push    |   true    |    false     | 是否需要将构建好的镜像推送到docker镜像仓库，如果填true，需要再前面增加一个docker login的  action完成镜像仓库的登录，在构建完成之后会自动推送到华为云SWR|      
+
 
 ## **使用样例**
 为docker镜像添加 linux/amd64,linux/arm64/v8,windows/amd64 平台支持 ,注意github暂不支持基于windows镜像跑workflow，请不要runs-on: windows相关的镜像
