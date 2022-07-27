@@ -35,17 +35,17 @@
 
 
 ## **使用样例**
-为docker镜像添加 linux/amd64,linux/arm64/v8,windows/amd64 平台支持 ,注意github暂不支持基于windows镜像跑workflow，请不要runs-on: windows相关的镜像
+为docker镜像添加 linux/amd64,linux/arm64/v8,windows/amd64 平台支持 ,注意github暂不支持基于macos,windows镜像跑workflow，请不要runs-on: windows或者macos相关的镜像
 ```yaml
-      - uses: huaweicloud/swr-login@v1
-        name: Login to HuaweiCloud SWR
+      - name: Login to Huawei Cloud SWR
+        uses: huaweicloud/swr-login@v2.0.0
         with:
           region: cn-north-4
           access-key-id: ${{ secrets.ACCESSKEY }}
           access-key-secret: ${{ secrets.SECRETACCESSKEY }}
           
-      - uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
-        name: "build docker image for multiplatform"
+      - name: Build Docker image for multiplatform
+        uses: huaweicloud/swr-multiplatform-build-action@v1.1.0
         with:
          image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
          platforms: linux/amd64,linux/arm64/v8,windows/amd64
