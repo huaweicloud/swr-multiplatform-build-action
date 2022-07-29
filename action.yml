@@ -1,4 +1,4 @@
-name: 'Build Docker Images For Multi Platform'
+name: 'Build Docker Images for Multi Platform'
 description: 'Build docker image cross platform like linux,windows,macos x86 and arm'
 branding:
   color: 'red'
