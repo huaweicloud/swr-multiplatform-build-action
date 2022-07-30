@@ -52,7 +52,10 @@ export async function getVersion(): Promise<string> {
 }
 
 /**
- * 从docker 版本字符串中提取出来数字版本，如 Docker version 20.10.14, build a224086
+ * 从docker 版本字符串中提取出来数字版本，
+ * 如 Docker version 20.10.14, build a224086         提取:20.10.14
+ *    Docker version 17.09.0-ce, build afdb6d4       提取:17.09.0
+ *    Docker version 18.06.1-ce, build e68fc7a 等    提取:18.06.1
  * @param dockerVersion
  * @returns
  */
