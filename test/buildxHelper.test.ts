@@ -5,7 +5,6 @@ import * as buildx from '../src/buildxHelper'
 test('check os,platform,arch', async() => {
     const osArch = utils.getOSArch();
     const osPlatform = utils.getOSPlatform();
-    const osType = utils.getOSType();
     await getDownloadURL(osArch,osPlatform);
   })
     
