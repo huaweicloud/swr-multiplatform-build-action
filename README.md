@@ -91,3 +91,20 @@ manifests:
  ![avatar](./images/20220509-195911.png)
 ### 3、windows x86-64平台 
  ![avatar](./images/20220510-085854.png)
+
+## 公网域名说明
+```
+1.buildx下载地址：
+ 1) buildx-v0.8.2.darwin-amd64   'https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.darwin-amd64'
+ 2) buildx-v0.8.2.darwin-arm64   'https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.darwin-arm64'
+ 3) buildx-v0.8.2.linux-amd64    'https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-amd64'
+ 4) buildx-v0.8.2.linux-arm-v6   'https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-arm-v6'
+ 5) buildx-v0.8.2.linux-arm-v7   'https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-arm-v7'
+ 6) buildx-v0.8.2.linux-arm64    'https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-arm64'
+ 7) buildx-v0.8.2.linux-ppc64le  'https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-ppc64le'
+ 8) buildx-v0.8.2.linux-riscv64  'https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-riscv64'
+ 9) buildx-v0.8.2.linux-s390x    'https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-s390x'
+ 10) buildx-v0.8.2.windows-amd64.exe    'https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.windows-amd64.exe'
+ 11) buildx-v0.8.2.windows-arm64.exe    'https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.windows-arm64.exe'
+2.buildx的release页面：'https://api.github.com/repos/docker/buildx/releases/latest'
+```
