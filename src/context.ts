@@ -1,4 +1,6 @@
 import * as core from '@actions/core'
+import * as utils from './utils'
+
 
 export interface Inputs {
   imagetag: string
@@ -99,12 +101,12 @@ export const DOCKER_BUILDX_MOD = '755'
 
 export function getInputs(): Inputs {
   return {
-    imagetag: core.getInput('image_tag', {required: true}),
-    platforms: core.getInput('platforms', {required: false}),
+    imagetag: utils.removeBlankString(core.getInput('image_tag', {required: true})),
+    platforms: utils.removeBlankString(core.getInput('platforms', {required: false})),
     uselatestbuildx: core.getBooleanInput('use_latest_buildx', {
       required: false
     }),
     push: core.getBooleanInput('push', {required: false}),
-    file: core.getInput('file', {required: false})
+    file: utils.removeBlankString(core.getInput('file', {required: false}))
   }
 }
