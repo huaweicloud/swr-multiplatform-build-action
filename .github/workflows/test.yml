@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: huaweicloud/swr-login@v1
+      - uses: huaweicloud/swr-login@v2.1.0
         name: Login to HuaweiCloud SWR
         with:
           region: cn-north-4

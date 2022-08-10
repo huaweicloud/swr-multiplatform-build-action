@@ -1,6 +1,6 @@
 {
   "name": "swr-multiplatform-build-action",
-  "version": "0.0.1",
+  "version": "v1.2.0",
   "private": true,
   "description": "build docker image cross platform like linux,windows,macos x86 and arm",
   "main": "src/main.ts",
