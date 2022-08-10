@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: huaweicloud/swr-login@v1
+      - uses: huaweicloud/swr-login@v2.1.0
         name: Login to HuaweiCloud SWR
         with:
           region: cn-north-4
@@ -28,7 +28,7 @@ jobs:
       - uses: ./
         name: "build docker image for multiplatform"
         with:
-         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
+         image_tag: swr.cn-north-4.xxx/hcloudcli/jdkdemo:jdk19-v1.0.0.4
          platforms: linux/amd64,linux/arm64/v8,windows/amd64
          use_latest_buildx: false
          push: true

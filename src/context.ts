@@ -1,4 +1,6 @@
 import * as core from '@actions/core'
+import * as utils from './utils'
+
 
 export interface Inputs {
   imagetag: string
@@ -10,18 +12,6 @@ export interface Inputs {
 
 /**
  * 目前支持SWR功能的region列表
- * 区域名称	区域	终端节点（Endpoint）	协议类型
- * 非洲-约翰内斯堡	af-south-1	swr-api.af-south-1.myhuaweicloud.com	HTTPS
- * 华北-北京四	   cn-north-4	swr-api.cn-north-4.myhuaweicloud.com	HTTPS
- * 华北-北京一	   cn-north-1	swr-api.cn-north-1.myhuaweicloud.com	HTTPS
- * 华东-上海二	   cn-east-2	swr-api.cn-east-2.myhuaweicloud.com	HTTPS
- * 华东-上海一	   cn-east-3	swr-api.cn-east-3.myhuaweicloud.com	HTTPS
- * 华南-广州	     cn-south-1	swr-api.cn-south-1.myhuaweicloud.com	HTTPS
- * 拉美-圣地亚哥	 la-south-2	swr-api.la-south-2.myhuaweicloud.com	HTTPS
- * 西南-贵阳一	   cn-southwest-2	swr-api.cn-southwest-2.myhuaweicloud.com	HTTPS
- * 亚太-曼谷	     ap-southeast-2	swr-api.ap-southeast-2.myhuaweicloud.com	HTTPS
- * 亚太-新加坡	   ap-southeast-3	swr-api.ap-southeast-3.myhuaweicloud.com	HTTPS
- * 中国-香港	     ap-southeast-1	swr-api.ap-southeast-1.myhuaweicloud.com	HTTPS
  */
 export const regionArray = [
   'af-south-1',
@@ -111,12 +101,12 @@ export const DOCKER_BUILDX_MOD = '755'
 
 export function getInputs(): Inputs {
   return {
-    imagetag: core.getInput('image_tag', {required: true}),
-    platforms: core.getInput('platforms', {required: false}),
+    imagetag: utils.removeBlankString(core.getInput('image_tag', {required: true})),
+    platforms: utils.removeBlankString(core.getInput('platforms', {required: false})),
     uselatestbuildx: core.getBooleanInput('use_latest_buildx', {
       required: false
     }),
     push: core.getBooleanInput('push', {required: false}),
-    file: core.getInput('file', {required: false})
+    file: utils.removeBlankString(core.getInput('file', {required: false}))
   }
 }

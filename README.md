@@ -38,14 +38,14 @@
 为docker镜像添加 linux/amd64,linux/arm64/v8,windows/amd64 平台支持,注意github暂不支持基于macos,windows镜像跑workflow,请不要runs-on: windows或者macos相关的镜像
 ```yaml
       - name: Login to Huawei Cloud SWR
-        uses: huaweicloud/swr-login@v2.0.0
+        uses: huaweicloud/swr-login@v2.1.0
         with:
           region: cn-north-4
           access-key-id: ${{ secrets.ACCESSKEY }}
           access-key-secret: ${{ secrets.SECRETACCESSKEY }}
           
       - name: Build Docker image for multiplatform
-        uses: huaweicloud/swr-multiplatform-build-action@v1.1.0
+        uses: huaweicloud/swr-multiplatform-build-action@v1.2.0
         with:
          image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
          platforms: linux/amd64,linux/arm64/v8,windows/amd64
@@ -91,3 +91,18 @@ manifests:
  ![avatar](./images/20220509-195911.png)
 ### 3、windows x86-64平台 
  ![avatar](./images/20220510-085854.png)
+
+## Action中使用公网地址说明
+1. buildx下载地址  
+ 1)[buildx-v0.8.2.darwin-amd64](https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.darwin-amd64)  
+ 2)[buildx-v0.8.2.darwin-arm64](https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.darwin-arm64)  
+ 3)[buildx-v0.8.2.linux-amd64](https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-amd64)  
+ 4)[buildx-v0.8.2.linux-arm-v6](https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-arm-v6)  
+ 5)[buildx-v0.8.2.linux-arm-v7](https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-arm-v7)  
+ 6)[buildx-v0.8.2.linux-arm64](https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-arm64)  
+ 7)[buildx-v0.8.2.linux-ppc64le](https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-ppc64le)  
+ 8)[buildx-v0.8.2.linux-riscv64](https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-riscv64)  
+ 9)[buildx-v0.8.2.linux-s390x](https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.linux-s390x)  
+ 10)[buildx-v0.8.2.windows-amd64.exe](https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.windows-amd64.exe)  
+ 11)[buildx-v0.8.2.windows-arm64.exe](https://github.com/docker/buildx/releases/download/v0.8.2/buildx-v0.8.2.windows-arm64.exe)  
+2. [buildx的release页面](https://api.github.com/repos/docker/buildx/releases/latest)
