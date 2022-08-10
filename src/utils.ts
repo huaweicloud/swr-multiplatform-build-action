@@ -4,6 +4,8 @@ import * as os from 'os'
 import * as cp from 'child_process'
 import * as fs from 'fs-extra'
 
+const BLANK_STRING_REG = new RegExp(/\s+/g);
+
 /**
  * 检查输入的各参数是否正常
  * @param inputs
@@ -19,7 +21,7 @@ export async function checkInputs(inputs: context.Inputs) {
   if (inputs.imagetag.startsWith('swr')) {
     const region = getRegionFromEndpoint(inputs.imagetag, 1, '.')
     if (!context.regionArray.includes(region)) {
-      core.info('SWR not support in this region: ' + region)
+      core.info(`SWR not support in this region: ${region}`)
       checkResult = false
     }
   }
@@ -32,7 +34,7 @@ export async function checkInputs(inputs: context.Inputs) {
     inputs.file = 'Dockerfile'
   }
   if (!checkDockerfileExist(inputs.file)) {
-    core.info('Dockerfile not exit or file content is empty')
+    core.info('Dockerfile does not exist or file content is empty')
     checkResult = false
   }
   return checkResult
@@ -51,7 +53,7 @@ export function checkPlatformSupport(platforms: string): boolean {
   const platformsArray = platforms.split(',')
   for (let i = 0; i < platformsArray.length; i++) {
     if (!context.dockerSupportPlatforms.includes(platformsArray[i])) {
-      core.info('SWR not support platform ' + platformsArray[i])
+      core.info(`SWR not support platform ${platformsArray[i]}`)
       isPlatformSupport = false
     }
   }
@@ -64,17 +66,16 @@ export function checkPlatformSupport(platforms: string): boolean {
  * @returns
  */
 export function checkDockerfileExist(file: string): boolean {
-  core.info('check local file ' + file + ' exist')
+  core.info(`Check whether the file ${file} exists.`)
   try {
     const stat = fs.statSync(file)
-    console.log(stat)
     if (stat.isFile() && stat.size > 0) {
       return true
     } else {
       return false
     }
   } catch (error) {
-    console.log(error)
+    core.setFailed('Get information about the given file failed.')
     return false
   }
 }
@@ -110,7 +111,7 @@ export function getRegionFromEndpoint(
   if (urlArray.length >= index + 1) {
     region = urlArray[index]
   }
-  core.info('get currentRegion : ' + region)
+  core.info(`get currentRegion : ${region}`)
   return region
 }
 
@@ -196,4 +197,12 @@ export async function execCommand(command: string): Promise<string> {
   const execCommandResult = await (cp.execSync(command) || '').toString()
   core.info(execCommandResult)
   return execCommandResult
+}
+
+/**
+ * 去除空白字符，包括空格、制表符、换页符和换行符。
+ * @param str
+ */
+ export function removeBlankString(str: string): string {
+  return str.replace(BLANK_STRING_REG, '').trim();
 }

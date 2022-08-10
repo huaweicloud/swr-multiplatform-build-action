@@ -3,7 +3,6 @@ description: 'Build docker image cross platform like linux,windows,macos x86 and
 branding:
   color: 'red'
   icon: 'cloud'
-author: 'wenchui'
 inputs:
   image_tag: 
     required: true

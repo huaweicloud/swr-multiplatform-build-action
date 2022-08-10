@@ -255,7 +255,6 @@ export async function getDockerBuildxVersion(): Promise<string> {
 
 /**
  * 解析当前 buildx version串中的buildx版本号
- * 如 github.com/docker/buildx v0.8.2 6224def4dd2c3d347eee19db595348c50d7cb491 提取出 0.8.2
  * @param buildxVersion
  * @returns
  */

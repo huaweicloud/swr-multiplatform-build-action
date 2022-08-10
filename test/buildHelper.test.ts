@@ -3,7 +3,7 @@ import * as build from '../src/buildHelper'
 import * as context from '../src/context'
 
 const inputs1:context.Inputs ={
-    imagetag: "swr.cn-north-4.myhuaweicloud.com/ptworkflow/tomcat:maven-sample",
+    imagetag: "swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample",
     platforms: "",
     uselatestbuildx: false,
     push: false,
@@ -11,7 +11,7 @@ const inputs1:context.Inputs ={
 }
 
 const inputs2:context.Inputs ={
-    imagetag: "swr.cn-north-4.myhuaweicloud.com/ptworkflow/tomcat:maven-sample",
+    imagetag: "swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample",
     platforms: "",
     uselatestbuildx: false,
     push: false,
@@ -21,7 +21,7 @@ const inputs2:context.Inputs ={
 
 
 const inputs3:context.Inputs ={
-    imagetag: "swr.cn-north-4.myhuaweicloud.com/ptworkflow/tomcat:maven-sample",
+    imagetag: "swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample",
     platforms: "linux/amd64,linux/arm64/v8,windows/amd64",
     uselatestbuildx: false,
     push: false,
@@ -29,7 +29,7 @@ const inputs3:context.Inputs ={
 }
 
 const inputs4:context.Inputs ={
-    imagetag: "swr.cn-north-4.myhuaweicloud.com/ptworkflow/tomcat:maven-sample",
+    imagetag: "swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample",
     platforms: "linux/amd64,linux/arm64/v8,windows/amd64",
     uselatestbuildx: false,
     push: true,
@@ -37,19 +37,11 @@ const inputs4:context.Inputs ={
 }
 
 test("test version compare mimetype", async() => {
-    // console.log(build.genDockerBuildCommand(inputs1));
+    expect(build.genDockerBuildCommand(inputs1)).toEqual("docker buildx build -t swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample .");
 
-    // console.log(build.genDockerBuildCommand(inputs2));
+    expect(build.genDockerBuildCommand(inputs2)).toEqual("docker buildx build -f ./Dockerfile -t swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample .");
 
-    // console.log(build.genDockerBuildCommand(inputs3));
+    expect(build.genDockerBuildCommand(inputs3)).toEqual("docker buildx build --platform linux/amd64,linux/arm64/v8,windows/amd64 -f ./dockerfile/Dockerfile -t swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample .");
 
-    // console.log(build.genDockerBuildCommand(inputs4));
-
-    expect(build.genDockerBuildCommand(inputs1)).toEqual("docker buildx build -t swr.cn-north-4.myhuaweicloud.com/ptworkflow/tomcat:maven-sample .");
-
-    expect(build.genDockerBuildCommand(inputs2)).toEqual("docker buildx build -f ./Dockerfile -t swr.cn-north-4.myhuaweicloud.com/ptworkflow/tomcat:maven-sample .");
-
-    expect(build.genDockerBuildCommand(inputs3)).toEqual("docker buildx build --platform linux/amd64,linux/arm64/v8,windows/amd64 -f ./dockerfile/Dockerfile -t swr.cn-north-4.myhuaweicloud.com/ptworkflow/tomcat:maven-sample .");
-
-    expect(build.genDockerBuildCommand(inputs4)).toEqual("docker buildx build --platform linux/amd64,linux/arm64/v8,windows/amd64 -f ./dockerfile/Dockerfile -t swr.cn-north-4.myhuaweicloud.com/ptworkflow/tomcat:maven-sample --push .");
+    expect(build.genDockerBuildCommand(inputs4)).toEqual("docker buildx build --platform linux/amd64,linux/arm64/v8,windows/amd64 -f ./dockerfile/Dockerfile -t swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample --push .");
 })
