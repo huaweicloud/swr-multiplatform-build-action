@@ -34,7 +34,7 @@ export async function checkInputs(inputs: context.Inputs) {
     inputs.file = 'Dockerfile'
   }
   if (!checkDockerfileExist(inputs.file)) {
-    core.info('Dockerfile not exit or file content is empty')
+    core.info('Dockerfile does not exist or file content is empty')
     checkResult = false
   }
   return checkResult
