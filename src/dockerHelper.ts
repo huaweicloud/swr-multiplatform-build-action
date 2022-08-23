@@ -9,7 +9,7 @@ import * as utils from './utils'
  * @returns
  */
 export async function checkDockerSuitable(): Promise<boolean> {
-  if (!checkDockerInstall()) {
+  if (!await checkDockerInstall()) {
     core.info('Docker not installed or not set to the path')
     return false
   }
