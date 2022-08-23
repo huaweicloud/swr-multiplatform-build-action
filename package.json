@@ -30,15 +30,12 @@
     "semver": "^7.3.5"
   },
   "devDependencies": {
-    "@types/mime": "^2.0.3",
-    "@types/node": "^16.11.25",
-    "@types/semver": "^7.3.5",
+    "@types/jest": "^28.1.7",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
     "@vercel/ncc": "^0.34.0",
     "eslint": "^8.19.0",
     "jest": "^28.1.2",
-    "@types/jest": "^28.1.5",
     "nock": "^10.0.6",
     "prettier": "^2.7.1",
     "ts-jest": "^28.0.5",
