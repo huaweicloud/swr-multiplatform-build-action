@@ -1,10 +1,11 @@
 import * as exec from '@actions/exec'
 import * as util from 'util'
 import * as utils from './utils'
+import * as buildx from './buildxHelper'
 import * as core from '@actions/core'
 import * as toolCache from '@actions/tool-cache'
 import * as context from './context'
-import * as fs from 'fs'
+import * as fs from 'fs-extra'
 import {v4 as uuidv4} from 'uuid'
 
 /**
@@ -15,16 +16,16 @@ export async function checkAndInstallDockerBuildx(
   inputs: context.Inputs
 ): Promise<boolean> {
   let installOrUpdateBuildx = false
-  if (!(await isDockerBuildXAvailable())) {
+  if (!(await buildx.isDockerBuildXAvailable())) {
     installOrUpdateBuildx = true
   }
-  if (inputs.uselatestbuildx && (await checkBuildxNeedUpdate(inputs))) {
+  if (inputs.uselatestbuildx && (await buildx.checkBuildxNeedUpdate(inputs))) {
     installOrUpdateBuildx = true
   }
   if (installOrUpdateBuildx) {
-    await installOrUpdateDockerBuildX()
+    await buildx.installOrUpdateDockerBuildX()
   }
-  if (!isDockerBuildXAvailable()) {
+  if (!await buildx.isDockerBuildXAvailable()) {
     return false
   }
   return true
@@ -151,13 +152,13 @@ export async function getBuildXDownlodPath(
  * @returns
  */
 export async function getLatestBuildxTag(): Promise<string> {
-  core.info('latest tag api address ' + context.DOCKER_BUILDX_RELEASE_API)
-  const tmpTagDownloadDir = './tmp/buildx/buildxtag/' + uuidv4()
+  core.info(`latest tag api address ${context.DOCKER_BUILDX_RELEASE_API}`)
+  const tmpTagDownloadDir = `./tmp/buildx/buildxtag/${uuidv4()}`
   return await toolCache
     .downloadTool(context.DOCKER_BUILDX_RELEASE_API, tmpTagDownloadDir)
     .then(
       buildxDownloadPath => {
-        core.info('buildxTagTmpDownloadPath ' + buildxDownloadPath)
+        core.info(`buildxTagTmpDownloadPath ${buildxDownloadPath}`)
         const response = JSON.parse(
           fs
             .readFileSync(buildxDownloadPath, 'utf8')
@@ -167,11 +168,11 @@ export async function getLatestBuildxTag(): Promise<string> {
         if (!response.tag_name) {
           return context.DOCKER_BUILDX_STABLE_TAG
         }
-        core.info('latest buildx tagname ' + response.tag_name)
+        core.info(`latest buildx tagname ${response.tag_name}`)
         return response.tag_name
-      },
-      error => {
-        core.info('error ' + error)
+      }
+    ).catch(error => {
+        core.info(`error: ${error}`)
         core.warning(
           util.format(
             'Failed to read latest buildx verison from %s. Using default stable version %s',
