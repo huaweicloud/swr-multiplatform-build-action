@@ -35,13 +35,22 @@ const inputs4:context.Inputs ={
     push: true,
     file: "./dockerfile/Dockerfile"
 }
+describe('test get docker buildx version', () => {
+    test("test version compare mimetype", async() => {
+        expect(build.genDockerBuildCommand(inputs1)).toEqual("docker buildx build -t swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample . ");
 
-test("test version compare mimetype", async() => {
-    expect(build.genDockerBuildCommand(inputs1)).toEqual("docker buildx build -t swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample .");
+        expect(build.genDockerBuildCommand(inputs2)).toEqual("docker buildx build -f ./Dockerfile -t swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample . ");
 
-    expect(build.genDockerBuildCommand(inputs2)).toEqual("docker buildx build -f ./Dockerfile -t swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample .");
+        expect(build.genDockerBuildCommand(inputs3)).toEqual("docker buildx build --platform linux/amd64,linux/arm64/v8,windows/amd64 -f ./dockerfile/Dockerfile -t swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample . ");
 
-    expect(build.genDockerBuildCommand(inputs3)).toEqual("docker buildx build --platform linux/amd64,linux/arm64/v8,windows/amd64 -f ./dockerfile/Dockerfile -t swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample .");
+        expect(build.genDockerBuildCommand(inputs4)).toEqual("docker buildx build --platform linux/amd64,linux/arm64/v8,windows/amd64 -f ./dockerfile/Dockerfile -t swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample --push . ");
+    })
+});
 
-    expect(build.genDockerBuildCommand(inputs4)).toEqual("docker buildx build --platform linux/amd64,linux/arm64/v8,windows/amd64 -f ./dockerfile/Dockerfile -t swr.cn-north-4.xxx/ptworkflow/tomcat:maven-sample --push .");
-})
+test('check genInitBildxBootStrap', () => {
+    expect(build.genInitBildxBootStrap()).toBe('docker buildx create --name multbuild --driver docker-container --use && docker buildx inspect multbuild --bootstrap');
+});
+
+test('check genBuildxResultCheckCommand', () => {
+    expect(build.genBuildxResultCheckCommand()).toBe('docker buildx ls');
+});
