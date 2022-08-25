@@ -26,7 +26,7 @@ describe('check and install docker buildx', () => {
         };
         jest.spyOn(buildx, 'isDockerBuildXAvailable').mockReturnValue(Promise.resolve(false));
         jest.spyOn(buildx, 'checkBuildxNeedUpdate').mockReturnValue(Promise.resolve(true));
-        jest.spyOn(buildx, 'installOrUpdateDockerBuildX');
+        jest.spyOn(buildx, 'installOrUpdateDockerBuildX').mockResolvedValue();
         expect(await buildx.checkAndInstallDockerBuildx(inputs)).toBe(false);
     });
 
@@ -40,7 +40,7 @@ describe('check and install docker buildx', () => {
         };
         jest.spyOn(buildx, 'isDockerBuildXAvailable').mockReturnValue(Promise.resolve(true));
         jest.spyOn(buildx, 'checkBuildxNeedUpdate').mockReturnValue(Promise.resolve(true));
-        jest.spyOn(buildx, 'installOrUpdateDockerBuildX');
+        jest.spyOn(buildx, 'installOrUpdateDockerBuildX').mockResolvedValue();;
         expect(await buildx.checkAndInstallDockerBuildx(inputs)).toBe(true);
     });
 });

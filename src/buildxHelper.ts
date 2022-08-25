@@ -154,7 +154,7 @@ export async function getBuildXDownlodPath(
 export async function getLatestBuildxTag(): Promise<string> {
   core.info(`latest tag api address ${context.DOCKER_BUILDX_RELEASE_API}`)
   const tmpTagDownloadDir = `./tmp/buildx/buildxtag/${uuidv4()}`
-  return toolCache
+  return await toolCache
     .downloadTool(context.DOCKER_BUILDX_RELEASE_API, tmpTagDownloadDir)
     .then(
       buildxDownloadPath => {
