@@ -172,7 +172,7 @@ export async function getLatestBuildxTag(): Promise<string> {
         return response.tag_name
       }
     ).catch(error => {
-        core.info(`error  + ${error}`)
+        core.info(`error: ${error}`)
         core.warning(
           util.format(
             'Failed to read latest buildx verison from %s. Using default stable version %s',
