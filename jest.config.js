@@ -3,7 +3,7 @@ module.exports = {
   restoreMocks: true,
   moduleFileExtensions: ['js', 'ts'],
   testEnvironment: 'node',
-  testMatch: ['**/*.test.ts'],
+  testMatch: ['**/*buildxHelper.test.ts'],
   transform: {
       '^.+\\.ts$': 'ts-jest',
   },
