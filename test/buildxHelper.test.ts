@@ -11,6 +11,28 @@ jest.mock('@actions/core');
 jest.mock('@actions/tool-cache');
 jest.mock('fs-extra');
 
+describe('check and install docker buildx', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('check and install docker buildx when uselatestbuildx is true and docker buildx is not available', async () => {
+    const inputs = {imagetag: '', platforms: '', uselatestbuildx: true, push: true, file: ''};
+    jest.spyOn(buildx, 'isDockerBuildXAvailable').mockReturnValue(Promise.resolve(false));
+    jest.spyOn(buildx, 'checkBuildxNeedUpdate').mockReturnValue(Promise.resolve(true));
+    jest.spyOn(buildx, 'installOrUpdateDockerBuildX');
+    expect(await buildx.checkAndInstallDockerBuildx(inputs)).toBe(false);
+  });
+
+  test('check and install docker buildx when uselatestbuildx is false and docker buildx is available', async () => {
+    const inputs = {imagetag: '', platforms: '', uselatestbuildx: true, push: true, file: ''};
+    jest.spyOn(buildx, 'isDockerBuildXAvailable').mockReturnValue(Promise.resolve(true));
+    jest.spyOn(buildx, 'checkBuildxNeedUpdate').mockReturnValue(Promise.resolve(true));
+    jest.spyOn(buildx, 'installOrUpdateDockerBuildX');
+    expect(await buildx.checkAndInstallDockerBuildx(inputs)).toBe(true);
+  });
+});
+
 describe('check buildx need update', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -134,6 +156,18 @@ describe('test get latest buildx tag', () => {
   test('check get latest buildx tag when tag_name does not exist', async () => {
     jest.spyOn(toolCache, 'downloadTool').mockReturnValue( Promise.resolve('\{\n "tag_name": "v0.0.0",\n"target_commitish": "master",\n"name": "v0.0.0"\n}'));
     jest.spyOn(fs, 'readFileSync').mockReturnValue('\{\n"target_commitish": "master",\n"name": "v0.0.0"\n}');
+    expect(await buildx.getLatestBuildxTag()).toBe('v0.8.2');
+  });
+
+  test('check get latest buildx tag when throw error', async () => {
+    jest.spyOn(toolCache, 'downloadTool').mockImplementation(() => {
+      throw new Error('Server Error.');
+    });
+    jest.spyOn(toolCache, 'downloadTool').mockReturnValue( Promise.resolve('\{\n "tag_name": "v0.0.0",\n"target_commitish": "master",\n"name": "v0.0.0"\n}'));
+    jest.spyOn(fs, 'readFileSync').mockImplementation(() => {
+      throw new Error('Server Error.');
+    });
+    // await buildx.getLatestBuildxTag()
     expect(await buildx.getLatestBuildxTag()).toBe('v0.8.2');
   });
   
