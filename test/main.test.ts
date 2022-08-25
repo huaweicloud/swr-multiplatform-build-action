@@ -11,7 +11,6 @@ jest.mock('../src/context');
 jest.mock('../src/dockerHelper');
 jest.mock('@actions/core');
 
-
 test('check docker suitable failed', async () => {
     jest.spyOn(dockerHelper, 'checkDockerSuitable').mockReturnValue(Promise.resolve(false));
     jest.spyOn(utils, 'checkInputs').mockReturnValue(Promise.resolve(false));
@@ -20,7 +19,7 @@ test('check docker suitable failed', async () => {
     jest.spyOn(buildHelper, 'genInitBildxBootStrap').mockReturnValue('');
     jest.spyOn(buildHelper, 'genDockerBuildCommand').mockReturnValue('');
     jest.spyOn(buildHelper, 'genBuildxResultCheckCommand').mockReturnValue('');
-    
+
     await main.run();
     expect(context.getInputs).toHaveBeenCalledTimes(1);
     expect(core.setFailed).toHaveBeenNthCalledWith(1, 'check Docker failed');
@@ -40,7 +39,7 @@ test('check inputs failed', async () => {
     jest.spyOn(buildHelper, 'genInitBildxBootStrap').mockReturnValue('');
     jest.spyOn(buildHelper, 'genDockerBuildCommand').mockReturnValue('');
     jest.spyOn(buildHelper, 'genBuildxResultCheckCommand').mockReturnValue('');
-    
+
     await main.run();
     expect(context.getInputs).toHaveBeenCalledTimes(1);
     expect(dockerHelper.checkDockerSuitable).toHaveBeenCalledTimes(1);
@@ -61,7 +60,7 @@ test('check and install docker buildx failed', async () => {
     jest.spyOn(buildHelper, 'genInitBildxBootStrap').mockReturnValue('');
     jest.spyOn(buildHelper, 'genDockerBuildCommand').mockReturnValue('');
     jest.spyOn(buildHelper, 'genBuildxResultCheckCommand').mockReturnValue('');
-    
+
     await main.run();
     expect(context.getInputs).toHaveBeenCalledTimes(1);
     expect(dockerHelper.checkDockerSuitable).toHaveBeenCalledTimes(1);
@@ -82,7 +81,7 @@ test('check and install docker buildx success', async () => {
     jest.spyOn(buildHelper, 'genInitBildxBootStrap').mockReturnValue('');
     jest.spyOn(buildHelper, 'genDockerBuildCommand').mockReturnValue('');
     jest.spyOn(buildHelper, 'genBuildxResultCheckCommand').mockReturnValue('');
-    
+
     await main.run();
     expect(context.getInputs).toHaveBeenCalledTimes(1);
     expect(dockerHelper.checkDockerSuitable).toHaveBeenCalledTimes(1);
@@ -93,4 +92,3 @@ test('check and install docker buildx success', async () => {
     expect(buildHelper.genDockerBuildCommand).toHaveBeenCalledTimes(1);
     expect(buildHelper.genBuildxResultCheckCommand).toHaveBeenCalledTimes(1);
 });
-
