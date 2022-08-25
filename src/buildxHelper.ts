@@ -4,7 +4,7 @@ import * as utils from './utils'
 import * as core from '@actions/core'
 import * as toolCache from '@actions/tool-cache'
 import * as context from './context'
-import * as fs from 'fs'
+import * as fs from 'fs-extra'
 import {v4 as uuidv4} from 'uuid'
 
 /**
